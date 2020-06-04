@@ -1,5 +1,7 @@
 # BCJ (Updated) version of the PODD, Post-Occupancy Data Device
 
+**Make sure to see the OneNote Notebook posted to the Teams channel for additional information**
+
 At a high-level, the original PODD was created using a full arduino with a wireless shield.
 At this point, we are likely able to get the entire device into a smaller form-factor as well all as capture more information and transfer it more efficiently.
 
@@ -14,7 +16,6 @@ The MQTT broker could be as simple as a Raspberry Pi that would then connect to 
 
 This allows everything to be extremely portable and it could isolated onto its own network.
 
-**Make sure to see the OneNote Notebook posted to the Teams channel for additional information**
-
 TODO:
-[ ] A much better description of the project is in order
+
+- [ ] A much better description of the project is in order
