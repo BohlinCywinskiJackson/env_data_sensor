@@ -3,7 +3,7 @@
 A copy of the various hardware datasheets will be stored here for reference during development.
 
 ## Light Sensor Pinout
-Part number: BH1750
+Part number: `BH1750`
 
 [Reference](https://components101.com/sensors/bh1750-ambient-light-sensor)
 
@@ -16,7 +16,7 @@ Part number: BH1750
 | 05 | **ADDR** | Device Address Pin |
 
 ## Humidity sensor
-Part number: DHT11
+Part number: `DHT11`
 
 [Reference](https://components101.com/dht11-temperature-sensor)
 
@@ -27,7 +27,7 @@ Part number: DHT11
 | 03 | **GND** | Ground |
 
 ## Temperature sensor
-Part number: DS18B20
+Part number: `DS18B20`
 
 [Reference](https://components101.com/sensors/ds18b20-temperature-sensor)
 
@@ -38,7 +38,7 @@ Part number: DS18B20
 | 03 | **Data** | Temp value to be read using 1-wire method |
 
 ## Sound sensor
-Part number: LM393 (or sim)
+Part number: `LM393` (or sim)
 
 [Reference](https://components101.com/modules/lm393-sound-detection-sensor-module)
 [Manufacturer Tutorial](https://osoyoo.com/2017/07/26/arduino-lesson-sound-detection-sensor/)
@@ -51,7 +51,7 @@ Part number: LM393 (or sim)
 | 04 | **DO** | Digital output |
 
 ## LED pixel
-Part number: WS2812B
+Part number: `WS2812B`
 
 [Reference](https://components101.com/displays/neopixel-led-strip)
 
