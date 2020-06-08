@@ -25,7 +25,7 @@ void setup() {
 // The following will create a double-blink followed by a pause on LED.
 // Adjust the delay to check to that various builds are working.
 void loop() {
-  Serial.println("Hello World");
+  Serial.println("Blink that LED!");
   digitalWrite(LED_BUILTIN, LOW);
   delay(200);
   digitalWrite(LED_BUILTIN, HIGH);
