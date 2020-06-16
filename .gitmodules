@@ -1,3 +1,9 @@
 [submodule "lib/DHT-sensor-library"]
 	path = lib/DHT-sensor-library
 	url = https://github.com/adafruit/DHT-sensor-library
+[submodule "lib/dht11"]
+	path = lib/dht11
+	url = https://github.com/adidax/dht11
+[submodule "lib/Adafruit_Sensor"]
+	path = lib/Adafruit_Sensor
+	url = https://github.com/adafruit/Adafruit_Sensor
