@@ -1,2 +1,6 @@
 build/*
 *.py
+
+.pio
+.clang_complete
+.gcc-flags.json
