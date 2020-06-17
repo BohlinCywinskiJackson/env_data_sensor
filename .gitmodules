@@ -7,3 +7,6 @@
 [submodule "lib/Adafruit_Sensor"]
 	path = lib/Adafruit_Sensor
 	url = https://github.com/adafruit/Adafruit_Sensor
+[submodule "lib/BH1750"]
+	path = lib/BH1750
+	url = https://github.com/claws/BH1750
