@@ -1,3 +1,4 @@
+#include <arduino.h>
 #include <DHT.h>
 #define DHTPIN D4
 #define DHTTYPE DHT11
