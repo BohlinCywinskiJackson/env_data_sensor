@@ -4,3 +4,7 @@ build/*
 .pio
 .clang_complete
 .gcc-flags.json
+
+doc/schematic/bins/*.fzb
+doc/schematic/parts/contrib/*
+doc/schematic/parts/svg/*
