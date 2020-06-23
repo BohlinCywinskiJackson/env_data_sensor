@@ -1,13 +1,19 @@
 /* BCJ Indoor Environment Data Sensor
 
-  written by:
+  YEAR:
+    2020
 
-  This sketch is for the indoor environmental data sensors developed by the authors listed above.
+  CONTRIBUTORS:
+    David Kitchen <dkitchen@bcj.com>
+    Doug Speckhard <dspeckhard@bcj.com>
+    Jon Szczesniak <jszczesniak@bcj.com>
 
-  It is designed to run on a Wemos D1 Mini controller and transfer data to a data collector via MQTT.
+  This sketch is for the indoor environmental data sensors developed by those listed above.
+
+  This device is designed to run on a Wemos D1 Mini controller and transfer data to a RaspberryPi data collector via MQTT.
   It is designed to be campatible with the following sensors:
     BH1750 - Illuminance sensor
-    DS18B20 - Temperature sensor
+    DS18B20 - Temperature sensor used to calculate MRT (mean radiant temperature)
     DHT111 - Humidity sensor
     MAX4466 - Sound level sensor
 
@@ -23,18 +29,36 @@
 
 
 /* USER CONFIG */
+// sensorID will need to be reviewed and set based on the number of sensor stations being deployed at an installation
+int sensorID = 1;                   // GUID for the sensor stations (default = 1)
+
+// global variables for calculating MRT
+const double gtDia = 0.04;          // diameter of globe thermometer housing in m (default = 0.04 for ping-pong ball )
+const double gtEmissivity = 0.97;   // emissivity of globe themometer housing (default = 0.97 for krylon ultra flat black)
+// See https://www.infrared-thermography.com/material-1.htm for emissivity information
+
+// global variables for WiFi >> may be better just to pull them from config.h
+const char* wifiSSID = "";
+const char* wifiPWD = "";
 
 /* PIN ASSIGNMENTS */
 
-/* STATIC CONFIG */
+/* INITIALIZATIONS */
+BH1750 lightMeter;
 
-/* VARIABLE ASSIGNMENTS */
+/* DYNAMIC VARIABLE ASSIGNMENTS */
+double lux = 0;
+
+int errCounter = 0;    // Counter to restart device upon collected errors
 
 /* FUNCTIONS */
 /* READ SENSORS */
 void readSensors() {
-  // LIGHT SENSOR
-  // GLOBAL TEMP SENSOR
+  // ILLUMINATION SENSOR
+  lux = lightMeter.readLightLevel();
+
+  // MRT (MEAN RADIANT TEMPERATURE) SENSOR
+
   // HUMIDITY SENSOR
   // SOUND LEVEL SENSOR
 }
@@ -46,9 +70,9 @@ void sendData() {
   // SEND PAYLOAD
 }
 
-void resetDevice() {
+void restartDevice() {
   // GRACEFULLY SHUT DOWN DEVICE IF ERROR > 5 times
-  if (resetCounter > 5) {
+  if (errCounter > 5) {
     ESP.restart();
   }
 }
@@ -59,13 +83,20 @@ void setup() {
   // SET PINMODES
   // SETUP WIFI
   // BEGIN I2C CONNECTIONS
+  Wire.begin();
+
+  // BEGIN ILLUMINATION SENSOR
+  lightMeter.begin();
 }
 
 
 /* MAIN LOOP */
 void loop() {
   // SENSORS READINGS CYCLE
-  // SEND DATA CYCLE
+  readSensors();
   // CHECK WIFI STATUS
+  // SEND DATA CYCLE
+  sendData();
   // CHECK ERRCOUNT AND RESTART IF NECESSARY
+  restartDevice();
 }
