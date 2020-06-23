@@ -67,14 +67,14 @@ int errCounter = 0;    // Counter to restart device upon collected errors
 void readSensors() {
   // ILLUMINATION SENSOR
   if (isnan(lightMeter.readLightLevel())) {
-    Serial.println("[ERROR] FAILED TO READ FROM LIGHT SENSOR")
+    Serial.println("[ERROR] FAILED TO READ FROM LIGHT SENSOR");
     errCounter++;
   } else {
     lux = lightMeter.readLightLevel();
   }
 
   // HUMIDITY SENSOR
-  if (isnan(humidityMeter.readHumidity()) || isnan(humidityMeter.readTemperature()) {
+  if (isnan(humidityMeter.readHumidity()) || isnan(humidityMeter.readTemperature())) {
     Serial.println("[ERROR] FAILED TO READ FROM TEMP/HUMIDITY SENSOR");
     errCounter++;
   } else {
