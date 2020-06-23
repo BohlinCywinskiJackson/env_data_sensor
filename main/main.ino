@@ -24,8 +24,8 @@
 #include <config.h>     // External configuration information
 #include <arduino.h>
 #include <Wire.h>       // Library for OneWire 12C devices
-#include <BH1750.h>
-#include <DHT.h>
+#include <BH1750.h>     // Library for illumination sensor
+#include <DHT.h>        // Library for temp and humidity sensor
 
 
 /* USER CONFIG */
@@ -50,7 +50,7 @@ const char* wifiPWD = "";
 
 /* INITIALIZATIONS */
 BH1750 lightMeter;
-DHT dht(DHTPIN, DHTTYPE);
+DHT humidityMeter(DHTPIN, DHTTYPE);
 
 
 /* DYNAMIC VARIABLE ASSIGNMENTS */
@@ -63,15 +63,6 @@ int errCounter = 0;    // Counter to restart device upon collected errors
 
 
 /* FUNCTIONS */
-/* CHECK FOR READ ERRORS */
-void checkSensor(x) {
-  if (isnan(x)) {
-    errCounter++;
-  else {
-    return x;
-  }
-  }
-}
 /* READ SENSORS */
 void readSensors() {
   // ILLUMINATION SENSOR
@@ -83,13 +74,13 @@ void readSensors() {
   }
 
   // HUMIDITY SENSOR
-  if (isnan(dht.readHumidity()) || isnan(dht.readTemperature()) {
+  if (isnan(humidityMeter.readHumidity()) || isnan(humidityMeter.readTemperature()) {
     Serial.println("[ERROR] FAILED TO READ FROM TEMP/HUMIDITY SENSOR");
     errCounter++;
   } else {
-    hum = dht.readHumidity();
-    tempC = dht.readTemperature();
-    tempF = dht.readTemperature(true);
+    hum = humidityMeter.readHumidity();
+    tempC = humidityMeter.readTemperature();
+    tempF = humidityMeter.readTemperature(true);
   }
 
   // MRT (MEAN RADIANT TEMPERATURE) SENSOR
@@ -116,12 +107,13 @@ void restartDevice() {
 
 /* SETUP */
 void setup() {
+  Serial.begin(9600);
   // SET PINMODES
   // SETUP WIFI
 
-  Wire.begin();       // BEGIN I2C CONNECTIONS
-  lightMeter.begin(); // BEGIN ILLUMINATION SENSOR
-  dht.begin();        // BEGIN HUMIDITY SENSOR
+  Wire.begin();           // BEGIN I2C CONNECTIONS
+  lightMeter.begin();     // BEGIN ILLUMINATION SENSOR
+  humidityMeter.begin();  // BEGIN AIR TEMPERATURE AND HUMIDITY SENSOR
 }
 
 
