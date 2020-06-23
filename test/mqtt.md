@@ -35,8 +35,18 @@ Potential payload for `sensorID / data / json`
 
 ```json
 {
+  "sensorID": 1,
+  "location": "main office",
+  "captureDate": 20200623,
+  "captureTime": 1207,
   "sensor": "humidity",
   "value": 70.40,
   "units": "%",
   }
+```
+
+Potential payload for `sensorID / data / csv`
+
+```text
+1,main office,20200623,1207,humidity,70.40,%
 ```
