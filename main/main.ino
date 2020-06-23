@@ -41,27 +41,62 @@ const double gtEmissivity = 0.97;   // emissivity of globe themometer housing (d
 const char* wifiSSID = "";
 const char* wifiPWD = "";
 
-/* PIN ASSIGNMENTS */
+
+/* PIN ASSIGNMENTS AND DEFINITIONS */
+// DHT11
+#define DHTPIN D4
+#define DHTTYPE DHT11
+
 
 /* INITIALIZATIONS */
 BH1750 lightMeter;
+DHT dht(DHTPIN, DHTTYPE);
+
 
 /* DYNAMIC VARIABLE ASSIGNMENTS */
 double lux = 0;
+double hum = 0;
+double tempC = 0;
+double tempF = 0;
 
 int errCounter = 0;    // Counter to restart device upon collected errors
 
+
 /* FUNCTIONS */
+/* CHECK FOR READ ERRORS */
+void checkSensor(x) {
+  if (isnan(x)) {
+    errCounter++;
+  else {
+    return x;
+  }
+  }
+}
 /* READ SENSORS */
 void readSensors() {
   // ILLUMINATION SENSOR
-  lux = lightMeter.readLightLevel();
+  if (isnan(lightMeter.readLightLevel())) {
+    Serial.println("[ERROR] FAILED TO READ FROM LIGHT SENSOR")
+    errCounter++;
+  } else {
+    lux = lightMeter.readLightLevel();
+  }
+
+  // HUMIDITY SENSOR
+  if (isnan(dht.readHumidity()) || isnan(dht.readTemperature()) {
+    Serial.println("[ERROR] FAILED TO READ FROM TEMP/HUMIDITY SENSOR");
+    errCounter++;
+  } else {
+    hum = dht.readHumidity();
+    tempC = dht.readTemperature();
+    tempF = dht.readTemperature(true);
+  }
 
   // MRT (MEAN RADIANT TEMPERATURE) SENSOR
 
-  // HUMIDITY SENSOR
   // SOUND LEVEL SENSOR
 }
+
 
 /* FORMAT AND SEND DATA */
 void sendData() {
@@ -69,6 +104,7 @@ void sendData() {
   // SETUP MQTT CONNECTION
   // SEND PAYLOAD
 }
+
 
 void restartDevice() {
   // GRACEFULLY SHUT DOWN DEVICE IF ERROR > 5 times
@@ -82,11 +118,10 @@ void restartDevice() {
 void setup() {
   // SET PINMODES
   // SETUP WIFI
-  // BEGIN I2C CONNECTIONS
-  Wire.begin();
 
-  // BEGIN ILLUMINATION SENSOR
-  lightMeter.begin();
+  Wire.begin();       // BEGIN I2C CONNECTIONS
+  lightMeter.begin(); // BEGIN ILLUMINATION SENSOR
+  dht.begin();        // BEGIN HUMIDITY SENSOR
 }
 
 
