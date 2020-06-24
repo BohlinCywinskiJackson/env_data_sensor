@@ -4,6 +4,7 @@ build/*
 .pio
 .clang_complete
 .gcc-flags.json
+.vscode
 
 doc/schematic/bins/*.fzb
 doc/schematic/parts/contrib/*
